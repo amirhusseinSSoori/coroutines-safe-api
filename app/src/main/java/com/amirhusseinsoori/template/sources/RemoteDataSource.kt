@@ -20,6 +20,14 @@ class RemoteDataSource @Inject constructor(
    suspend fun remoteApi(): ApiWrapper<SampleResponse> = safeApi { myApi.showDetails() }
 
 
+      fun flowRemote():Flow<ApiWrapper<SampleResponse>> = flow {
+
+
+      emit(safeApi { myApi.showDetailsFlow() }) // Emits the result of the request to the flow
+
+
+   }
+
 
 
 }

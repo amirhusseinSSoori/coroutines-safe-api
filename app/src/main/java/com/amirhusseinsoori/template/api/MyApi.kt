@@ -14,7 +14,8 @@ interface MyApi {
     @GET("todos/1")
     suspend fun showDetails(): Response<SampleResponse>
 
-
+    @GET("todos/1")
+    fun showDetailsFlow(): Response<SampleResponse>
 
 
 
