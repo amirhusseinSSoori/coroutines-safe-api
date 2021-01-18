@@ -2,6 +2,7 @@ package com.amirhusseinsoori.template.ui.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.SampleResponse
 
 
@@ -14,9 +15,28 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
         ViewModel() {
 
 
-    val _showList = MutableLiveData<ApiWrapper<SampleResponse>>()
-    val showListDr: LiveData<ApiWrapper<SampleResponse>>
-        get() = _showList
+
+
+
+    val showDetailsDiver = MutableLiveData<ApiWrapper<DiverResponse>>()
+    val getShowDetailsDiver: LiveData<ApiWrapper<DiverResponse>>
+        get() = showDetailsDiver
+
+
+    fun showDiver(token:String) {
+        viewModelScope.launch {
+            showDetailsDiver.value = repository.getDiverRemote(token)
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34,11 +54,7 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
 
 
 
-    fun showList() {
-        viewModelScope.launch {
-            _showList.value = repository.getRemote()
-        }
-    }
+
 
 
 }

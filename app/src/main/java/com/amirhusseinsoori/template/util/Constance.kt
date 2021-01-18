@@ -6,13 +6,8 @@ object Constance {
     const val SHARED_PREFERENCES_NAME = "My_Pref"
     const val DATABASE_NAME = "My_DB"
     const val BASE_URL = "https://jsonplaceholder.typicode.com/"
-    const val TOKEN = "IU2NI9qXCQ_b2nWnxMf4oLIy7cqVRKQZ"
-
-    const val USER_ID = "userID"
-    const val USER_NAME = "userName"
-    const val PHONE_NUMBER = "phoneNumber"
-    const val CAMERA_REQUEST = 0
-    const val GALLERY_REQUEST = 1
+    const val URL="https://unison-dev.parsdata.net/app/billing/"
+    const val TOKEN = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJzZXNzaW9uX2lkIjoxMTEsImlzcyI6InFPUUppWEVsaWZwcXlSeUpNcEFvdGxVNlVZZm1QT0xTIn0.SsMsT7lX78IZsKl_f6_4IV45dXTREgVZ4hZ70AecScQ"
 
 
 

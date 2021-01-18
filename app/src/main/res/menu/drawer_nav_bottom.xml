@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/settingFragment"
+        android:icon="@drawable/setting"
+        android:title="تنظیمات">
+    </item>
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home"
+        android:title="تراکنش ها">
+    </item>
+    <item
+        android:id="@+id/contactFragment"
+        android:icon="@drawable/contact"
+        android:title="مخاطبین">
+    </item>
+</menu>

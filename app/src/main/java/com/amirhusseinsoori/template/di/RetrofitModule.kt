@@ -3,6 +3,7 @@ package com.amirhusseinsoori.template.di
 import android.content.Context
 import com.amirhusseinsoori.template.util.Constance.BASE_URL
 import com.amirhusseinsoori.template.api.MyApi
+import com.amirhusseinsoori.template.util.Constance
 import com.example.template.api.safe.Connectivity
 
 
@@ -74,7 +75,7 @@ object RetrofitModule {
     fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit.Builder {
         return Retrofit.Builder()
                 .client(client)
-                .baseUrl(BASE_URL)
+                .baseUrl(Constance.URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
 
     }

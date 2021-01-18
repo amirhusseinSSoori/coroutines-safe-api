@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">template</string>
+    <string name="txtRequest">درخواست</string>
+    <string name="txtSend">ارسال</string>
+    <string name="txt_price_one">350,000</string>
 </resources>

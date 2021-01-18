@@ -2,6 +2,7 @@ package com.amirhusseinsoori.template.repositories
 
 
 
+import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.SampleResponse
 import com.amirhusseinsoori.template.sources.RemoteDataSource
 import com.example.template.api.safe.ApiWrapper
@@ -15,11 +16,11 @@ class ProfileRepository @Inject constructor(
     private val remote: RemoteDataSource
 ) {
 
-    suspend fun getRemote(): ApiWrapper<SampleResponse> =remote.remoteApi()
+
 
     fun favoriteLatestNews():Flow<ApiWrapper<SampleResponse>> =remote.flowRemote()
 
-
+    suspend fun getDiverRemote(token:String): ApiWrapper<DiverResponse> =remote.diverRemote(token)
 
 
 

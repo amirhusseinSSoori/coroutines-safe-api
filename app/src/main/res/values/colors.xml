@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yellow_limoo">#FFCC40</color>
+    <color name="yellow_dark_limoo">#8A6F25</color>
+    <color name="blueUp">#3041D0</color>
+    <color name="btnBorder">#FFFFFF</color>
+    <color name="btnRequest">#334CD2</color>
+    <color name="btnSend">#0AB571</color>
+    <color name="gray">#E7E7E7</color>
 </resources>
