@@ -3,4 +3,11 @@
     <string name="txtRequest">درخواست</string>
     <string name="txtSend">ارسال</string>
     <string name="txt_price_one">350,000</string>
+    <string name="textNameHomeF">مسعود امجد</string>
+    <string name="aboutUser">دنگ شما</string>
+    <string name="textPriceHomeF">تومان</string>
+    <string name="textHistory">تاریخ</string>
+    <string name="textdescription">ازشما</string>
+    <string name="textRequest">دریافت از</string>
+
 </resources>

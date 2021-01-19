@@ -1,8 +1,8 @@
 package com.amirhusseinsoori.template.api.responses.response
 
 data class Property(
-    val code: Int,
-    val property_id: Int,
-    val tran_id: Int,
-    val values: Values
+    val code: Int?=null,
+    val property_id: Int?=null,
+    val tran_id: Int?=null,
+    val values: Values?=null
 )

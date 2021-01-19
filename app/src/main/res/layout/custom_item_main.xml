@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_2sdp"
+    android:elevation="@dimen/_5sdp"
     android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_homeF_profile"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
         android:layout_margin="@dimen/_10sdp"
-        android:background="@drawable/user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +21,7 @@
         android:id="@+id/txt_homeF_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
+        android:layout_margin="@dimen/_12sdp"
         android:fontFamily="@font/vazir_medium_fd"
         android:text="132,0000"
         android:textColor="@color/black"
@@ -34,11 +34,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:text="دریافت از"
-        android:visibility="gone"
+        android:text="@string/textRequest"
+
         android:fontFamily="@font/vazir_light"
         android:textColor="@color/mdtp_dark_gray"
-        android:textSize="@dimen/_6sdp"
+        android:textSize="@dimen/_9sdp"
         android:padding="1dp"
         app:layout_constraintEnd_toStartOf="@+id/img_homeF_profile"
         app:layout_constraintTop_toTopOf="@+id/img_homeF_profile" />
@@ -47,10 +47,10 @@
         android:id="@+id/txt_homeF_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="مسعود امجد "
+        android:text="@string/textNameHomeF"
 
         android:textColor="@color/black"
-        android:textSize="@dimen/_8sdp"
+        android:textSize="@dimen/_10sdp"
         android:layout_marginRight="2dp"
         android:padding="1dp"
         android:fontFamily="@font/vazir_medium_fd"
@@ -62,11 +62,10 @@
         android:id="@+id/txt_homeF_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ازشما"
+        android:text="@string/textdescription"
         android:padding="1dp"
-        android:visibility="gone"
         android:textColor="@color/mdtp_dark_gray"
-        android:textSize="@dimen/_6sdp"
+        android:textSize="@dimen/_7sdp"
         android:layout_marginRight="@dimen/_2sdp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_homeF_name"
         app:layout_constraintEnd_toStartOf="@+id/txt_homeF_name"
@@ -75,10 +74,10 @@
     <TextView
         android:id="@+id/txt_homeF_about_cost"
         android:layout_width="wrap_content"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_8sdp"
         android:layout_height="wrap_content"
         android:padding="1dp"
-        android:text="دنگ شما"
+        android:text="@string/aboutUser"
         app:layout_constraintEnd_toEndOf="@+id/txt_homeF_request"
         app:layout_constraintTop_toBottomOf="@+id/txt_homeF_name" />
 
@@ -87,8 +86,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/vazir_medium_fd"
-        android:text="تومان"
-        android:textSize="@dimen/_4sdp"
+        android:text="@string/textPriceHomeF"
+        android:textSize="@dimen/_9sdp"
         app:layout_constraintStart_toStartOf="@+id/txt_homeF_cost"
         app:layout_constraintTop_toBottomOf="@+id/txt_homeF_cost" />
 
@@ -96,8 +95,9 @@
         android:id="@+id/txt_homeF_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="تاریخ"
-        android:textSize="@dimen/_4sdp"
+        android:text="@string/textHistory"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:textSize="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@+id/txt_homeF_cost"
         app:layout_constraintTop_toBottomOf="@+id/txt_homeF_price" />
 </androidx.constraintlayout.widget.ConstraintLayout>

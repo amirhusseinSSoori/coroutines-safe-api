@@ -18,6 +18,7 @@ import javax.inject.Singleton
 object AppModule {
 
 
+
     @Singleton
     @Provides
     fun provideSharedPreference(@ApplicationContext context: Context) =

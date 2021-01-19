@@ -12,6 +12,7 @@ import com.amirhusseinsoori.template.api.responses.response.Transaction
 import com.amirhusseinsoori.template.ui.Adapter.HomeAdapter
 import com.amirhusseinsoori.template.ui.viewmodel.ProfileViewModel
 import com.amirhusseinsoori.template.util.Constance
+import com.amirhusseinsoori.template.util.SetTime
 
 import com.example.template.api.safe.ApiWrapper
 import com.squareup.picasso.Picasso
@@ -29,12 +30,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     @Inject
     lateinit var picasso: Picasso
-    var mainList = ArrayList<DiverResponse>()
-    var childList = ArrayList<Transaction>()
+    @Inject
+    lateinit var time: SetTime
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //  getDetails()
-        adapterHome = HomeAdapter()
+        adapterHome = HomeAdapter(time,picasso)
 
 
         showDiver()
@@ -54,11 +57,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is ApiWrapper.Success -> {
 
                     response.data.let {
-                   mainList.add(it!!)
 
 
-
-                         val list1=it.transactions
+                        val list1 = it!!.transactions
 
 
 
@@ -77,7 +78,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
                     }
-
 
 
 //
@@ -106,6 +106,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     }
+
 
 
 }
