@@ -1,8 +1,6 @@
 package com.amirhusseinsoori.template.ui.Adapter
 
-import android.R.attr.*
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -58,13 +56,11 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
 
         when (currentItem.transaction!!.view_type) {
             1 -> {
-
-
                 currentItem!!.transaction!!.status.let {
                     if (checkStatus(it!!) == "رد شده") {
                         holder.itemView.txt_homeF_description.setTextColor(Color.parseColor("#F93737"))
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
-                    }else{
+                    } else {
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
                     }
                 }
@@ -81,7 +77,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                 }
 
                 currentItem.transaction.creation_time?.let {
-                    holder.itemView.txt_homeF_history.text = time.setTime(it.toString())
+                    holder.itemView.txt_homeF_history.text = time.time(it.toString())
                 }
 
 
@@ -101,7 +97,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     if (checkStatus(it!!) == "رد شده") {
                         holder.itemView.txt_homeF_description.setTextColor(Color.parseColor("#F93737"))
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
-                    }else{
+                    } else {
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
                     }
                 }
@@ -118,7 +114,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                 }
 
                 currentItem.transaction.creation_time?.let {
-                    holder.itemView.txt_homeF_history.text = time.setTime(it.toString())
+                    holder.itemView.txt_homeF_history.text = time.time(it.toString())
                 }
 
 
@@ -138,7 +134,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     if (checkStatus(it!!) == "رد شده") {
                         holder.itemView.txt_homeF_description.setTextColor(Color.parseColor("#F93737"))
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
-                    }else{
+                    } else {
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
                     }
                 }
@@ -161,7 +157,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     if (checkStatus(it!!) == "رد شده") {
                         holder.itemView.txt_homeF_description.setTextColor(Color.parseColor("#F93737"))
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
-                    }else{
+                    } else {
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
                     }
                 }
@@ -176,7 +172,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                 }
 
                 currentItem.transaction.creation_time?.let {
-                    holder.itemView.txt_homeF_history.text = time.setTime(it.toString())
+                    holder.itemView.txt_homeF_history.text = time.time(it.toString())
                 }
 
 
@@ -196,7 +192,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     if (checkStatus(it!!) == "رد شده") {
                         holder.itemView.txt_homeF_description.setTextColor(Color.parseColor("#F93737"))
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
-                    }else{
+                    } else {
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
                     }
                 }
@@ -212,7 +208,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                 }
 
                 currentItem.transaction.creation_time?.let {
-                    holder.itemView.txt_homeF_history.text = time.setTime(it.toString())
+                    holder.itemView.txt_homeF_history.text = time.time(it.toString())
                 }
 
 
@@ -234,7 +230,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     if (checkStatus(it!!) == "رد شده") {
                         holder.itemView.txt_homeF_description.setTextColor(Color.parseColor("#F93737"))
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
-                    }else{
+                    } else {
                         holder.itemView.txt_homeF_description.text = checkStatus(it!!)
                     }
                 }
@@ -244,7 +240,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                 }
 
                 currentItem.transaction.creation_time?.let {
-                    holder.itemView.txt_homeF_history.text = time.setTime(it.toString())
+                    holder.itemView.txt_homeF_history.text = time.time(it.toString())
                 }
 
 
@@ -277,12 +273,12 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
     }
 
 
-    private fun checkStatus(type:Int):String{
-        return when(type){
-            0->"درخواست جدید"
-            1->"تکمیل شده"
-            2->"در انتظار"
-            3->"رد شده"
+    private fun checkStatus(type: Int): String {
+        return when (type) {
+            0 -> "درخواست جدید"
+            1 -> "تکمیل شده"
+            2 -> "در انتظار"
+            3 -> "رد شده"
             else -> ""
         }
 

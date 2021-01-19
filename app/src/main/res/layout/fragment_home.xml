@@ -20,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/btnRequest"
         android:layout_width="0dp"
@@ -149,7 +150,7 @@
         android:background="@drawable/bg_container_search"
         android:orientation="horizontal"
 
-        android:layout_margin="@dimen/_10sdp"
+        android:layout_margin="@dimen/_2sdp"
          >
 
         <ImageView

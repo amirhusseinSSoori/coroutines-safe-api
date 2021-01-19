@@ -18,16 +18,16 @@ class SetTime @Inject constructor() {
         "نوامبر",
         "دسامبر "
     )
+    fun time(num: String): String {
 
-    fun setTime(num: String): String {
 
-
-        val year: String = num.substring(0, 4)
-        val mouth: String = num.substring(4, 6)
-        val time: String = num.substring(8, 10)
-        val min: String = num.substring(10, 12)
-        val second: String = num.substring(12, 14)
-        return "${setMouth(mouth, list)} $year ساعت $time و $min دقیقه و $second  ثانیه"
+        val year = num.substring(0, 4)
+        val mouth = num.substring(4, 6)
+        val day: String = num.substring(6, 8)
+        val time = num.substring(8, 10)
+        val min = num.substring(10, 12)
+        val second = num.substring(12, 14)
+        return day + " ${setMouth(mouth, list)} $year ساعت $time و $min دقیقه و $second  ثانیه"
 
     }
 

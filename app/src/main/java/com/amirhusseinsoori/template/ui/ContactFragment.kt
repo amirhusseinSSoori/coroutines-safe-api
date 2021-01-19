@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.amirhusseinsoori.template.R
 
 
-class ContactFragment :Fragment(R.layout.fragment_contact){
+class ContactFragment :MainFragment(R.layout.fragment_contact){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

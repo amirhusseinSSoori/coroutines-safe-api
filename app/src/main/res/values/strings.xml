@@ -9,5 +9,5 @@
     <string name="textHistory">تاریخ</string>
     <string name="textdescription">ازشما</string>
     <string name="textRequest">دریافت از</string>
-
+    <string name="rejected">رد شده</string>
 </resources>

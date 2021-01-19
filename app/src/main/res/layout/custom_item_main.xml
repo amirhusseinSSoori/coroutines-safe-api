@@ -96,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textHistory"
+        android:fontFamily="@font/vazir_medium_fd"
         android:layout_marginTop="@dimen/_1sdp"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@+id/txt_homeF_cost"

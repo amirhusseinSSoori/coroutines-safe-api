@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : MainFragment(R.layout.fragment_home) {
     private val TAG = "ProfileFragment"
     var adapterHome: HomeAdapter? = null
 
@@ -32,6 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     lateinit var picasso: Picasso
     @Inject
     lateinit var time: SetTime
+    var details=ArrayList<Transaction>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,17 +56,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.getShowDetailsDiver.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is ApiWrapper.Success -> {
-
                     response.data.let {
-
-
-                        val list1 = it!!.transactions
-
-
-
-
-                        Log.e("list", "$list1 ")
-                        adapterHome!!.differ.submitList(list1!!)
+                        details = it!!.transactions!!
+                        Log.e("list", "$details ")
+                        adapterHome!!.differ.submitList(details!!)
                         rvMain.apply {
                             adapter = adapterHome
                             layoutManager = LinearLayoutManager(
@@ -80,22 +74,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
 
 
-//
+
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.data!!}")
 
 
                 }
                 is ApiWrapper.ApiError -> {
                     Log.e(TAG, "onSubscribeShowDiver:${response.totalError} ")
-                    //toastError()
+                  toastError()
                 }
                 is ApiWrapper.NetworkError -> {
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
-                    // toastNet()
+                    toastNet()
                 }
                 is ApiWrapper.UnknownError -> {
                     Log.e(TAG, "onSubscribeShowDiver: ${response.message}")
-                    //toastError()
+                   toastError()
                 }
 
 
