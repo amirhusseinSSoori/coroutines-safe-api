@@ -1,5 +1,6 @@
 package com.amirhusseinsoori.template.api.responses.response
 
+import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
 import com.google.gson.annotations.SerializedName
 
 data class DiverResponse(

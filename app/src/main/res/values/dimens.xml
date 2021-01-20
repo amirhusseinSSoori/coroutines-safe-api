@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <dimen name="BorderBtn">@dimen/_1sdp</dimen>
+    <dimen name="BorderBtn">@dimen/_3sdp</dimen>
     <dimen name="heightBtn">@dimen/_32sdp</dimen>
     <dimen name="paddingRightLeftBtn">@dimen/_7sdp</dimen>
     <dimen name="marginRightLeftBtn">@dimen/_15sdp</dimen>

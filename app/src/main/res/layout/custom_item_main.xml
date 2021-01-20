@@ -21,7 +21,9 @@
         android:id="@+id/txt_homeF_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
+
+        android:layout_marginStart="@dimen/_17sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/vazir_medium_fd"
         android:text="132,0000"
         android:textColor="@color/black"
@@ -33,12 +35,12 @@
         android:id="@+id/txt_homeF_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="3dp"
         android:text="@string/textRequest"
 
         android:fontFamily="@font/vazir_light"
         android:textColor="@color/mdtp_dark_gray"
-        android:textSize="@dimen/_9sdp"
+        android:textSize="@dimen/_7sdp"
         android:padding="1dp"
         app:layout_constraintEnd_toStartOf="@+id/img_homeF_profile"
         app:layout_constraintTop_toTopOf="@+id/img_homeF_profile" />
@@ -50,7 +52,7 @@
         android:text="@string/textNameHomeF"
 
         android:textColor="@color/black"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_11sdp"
         android:layout_marginRight="2dp"
         android:padding="1dp"
         android:fontFamily="@font/vazir_medium_fd"
@@ -59,7 +61,7 @@
         app:layout_constraintTop_toTopOf="@+id/img_homeF_profile" />
 
     <TextView
-        android:id="@+id/txt_homeF_description"
+        android:id="@+id/txt_homeF_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textdescription"
@@ -74,12 +76,26 @@
     <TextView
         android:id="@+id/txt_homeF_about_cost"
         android:layout_width="wrap_content"
-        android:textSize="@dimen/_8sdp"
+        android:textSize="@dimen/_7sdp"
         android:layout_height="wrap_content"
         android:padding="1dp"
+        android:fontFamily="@font/vazir_light"
         android:text="@string/aboutUser"
         app:layout_constraintEnd_toEndOf="@+id/txt_homeF_request"
         app:layout_constraintTop_toBottomOf="@+id/txt_homeF_name" />
+
+    <TextView
+        android:id="@+id/txt_homeF_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_homeF_cost"
+        app:layout_constraintEnd_toStartOf="@+id/txt_homeF_cost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_homeF_cost" />
 
     <TextView
         android:id="@+id/txt_homeF_price"
@@ -91,6 +107,20 @@
         app:layout_constraintStart_toStartOf="@+id/txt_homeF_cost"
         app:layout_constraintTop_toBottomOf="@+id/txt_homeF_cost" />
 
+    <TextView
+        android:id="@+id/txt_diver"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/vazir_medium_fd"
+        android:text="شارژ دایور"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:textSize="@dimen/_13sdp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txt_homeF_about_cost"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/txt_homeF_history"
         android:layout_width="wrap_content"

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/tools">
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_170sdp"
+            android:layout_height="@dimen/_120sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,15 +145,17 @@
 
         </Constraint>
     </ConstraintSet>
-
     <Transition
+        app:constraintSetStart="@+id/start"
         app:constraintSetEnd="@+id/end"
-        app:constraintSetStart="@id/start"
-        app:duration="2000">
-        <OnClick
-            app:clickAction="toggle"
-            app:targetId="@id/container" />
+        app:duration="3000"
+        app:autoTransition="animateToStart" >
+        <OnSwipe
+            app:touchAnchorId="@+id/rvMain"
+            app:dragDirection="dragUp" />
     </Transition>
+
+ 
 
 
 </MotionScene>
