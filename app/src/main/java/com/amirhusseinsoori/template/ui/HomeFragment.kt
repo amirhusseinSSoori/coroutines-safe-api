@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amirhusseinsoori.template.R
+import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
 import com.amirhusseinsoori.template.ui.Adapter.HomeAdapter
 import com.amirhusseinsoori.template.ui.viewmodel.ProfileViewModel
@@ -32,9 +33,8 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     @Inject
     lateinit var time: SetTime
     var details = ArrayList<Transaction>()
-
-//    var listData = viewModel.getAllData()
-    private var model = ArrayList<Transaction>()
+    var getDetails = ArrayList<DiverResponse>()
+    private var localList = ArrayList<DiverResponse>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +44,8 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
         showDiver()
         onSubscribeShowDiver()
+        localList=viewModel.getAllDataProfileViewModel() as ArrayList<DiverResponse>
+
 
     }
 
@@ -52,9 +54,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
         viewModel.showDiver(Constance.TOKEN)
     }
 
-    private fun insertData(transaction: Transaction){
-//        viewModel.insertData(transaction)
-    }
+
 
     private fun onSubscribeShowDiver() {
 
@@ -66,11 +66,18 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                     response.data.let {
 
 
-                        details = it!!.transactions!!
 
 
-//                        Log.e("list", "$listData ")
-                     adapterHome!!.differ.submitList(details!!)
+
+
+
+                        details = it!!.transactions!! as ArrayList<Transaction>
+
+                      viewModel.insertAllDataProfileViewModel(it)
+                        adapterHome!!.differ.submitList( localList[0].transactions)
+
+                     Log.e("list", "${viewModel.getAllDataProfileViewModel()} ")
+
                         rvMain.apply {
                             adapter = adapterHome
                             layoutManager = LinearLayoutManager(
@@ -95,6 +102,16 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                     toastError()
                 }
                 is ApiWrapper.NetworkError -> {
+                    adapterHome!!.differ.submitList( localList[0].transactions)
+                    rvMain.apply {
+                        adapter = adapterHome
+                        layoutManager = LinearLayoutManager(
+                            requireContext(),
+                            LinearLayoutManager.VERTICAL, false
+                        )
+
+
+                    }
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
                     toastNet()
                 }

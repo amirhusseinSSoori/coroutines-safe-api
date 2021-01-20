@@ -16,9 +16,9 @@ import kotlinx.android.synthetic.main.custom_item_main.view.*
 
 
 class HomeAdapter(var time: SetTime, val picasso: Picasso) :
-    RecyclerView.Adapter<HomeAdapter.BlackListHolder>() {
+    RecyclerView.Adapter<HomeAdapter.Holder>() {
 
-    inner class BlackListHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 
     private val differCallback = object : DiffUtil.ItemCallback<Transaction>() {
@@ -36,8 +36,8 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
 
     val differ = AsyncListDiffer(this, differCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlackListHolder {
-        return BlackListHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        return Holder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.custom_item_main,
                 parent,
@@ -47,7 +47,7 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: HomeAdapter.BlackListHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeAdapter.Holder, position: Int) {
         val currentItem = differ.currentList[position]
         when (currentItem.transaction!!.view_type) {
             1 -> {

@@ -14,10 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepository) :
-        ViewModel() {
-
-
-
+    ViewModel() {
 
 
     val showDetailsDiver = MutableLiveData<ApiWrapper<DiverResponse>>()
@@ -25,46 +22,29 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
         get() = showDetailsDiver
 
 
-    fun showDiver(token:String) {
+    fun showDiver(token: String) {
         viewModelScope.launch {
             showDetailsDiver.value = repository.getDiverRemote(token)
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     val showDetails = repository
-            .favoriteLatestNews()
-            .asLiveData(viewModelScope.coroutineContext)
+        .favoriteLatestNews()
+        .asLiveData(viewModelScope.coroutineContext)
 
 
     val details: LiveData<ApiWrapper<SampleResponse>>
         get() = showDetails
 
 
-
-
-
-
-
+    //local
+    fun getAllDataProfileViewModel() = repository.getAllDataRepository()
+    fun insertAllDataProfileViewModel(diverResponse: DiverResponse) {
+        viewModelScope.launch {
+            repository.insertAllDataRepository(diverResponse)
+        }
+    }
 
 
 }

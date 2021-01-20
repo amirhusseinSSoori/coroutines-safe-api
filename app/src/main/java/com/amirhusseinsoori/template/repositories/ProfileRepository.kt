@@ -16,14 +16,17 @@ import javax.inject.Inject
 
 class ProfileRepository @Inject constructor(
     private val remote: RemoteDataSource,
-    private val local: LocalDataSource
+    private val localDataSource: LocalDataSource
+
 ) {
 
-
+    //network
     fun favoriteLatestNews(): Flow<ApiWrapper<SampleResponse>> = remote.flowRemote()
-
     suspend fun getDiverRemote(token: String): ApiWrapper<DiverResponse> = remote.diverRemote(token)
 
-    fun getRemoteLocalChat() = local.getData()
-    suspend fun insetRemoteLocalChat(chat: Chat) = local.insertDataChat(chat)
+
+    //local
+    fun getAllDataRepository() =localDataSource.getAllDataSource()
+    suspend fun insertAllDataRepository(diverLocal: DiverResponse) =localDataSource.insertAllDataSource(diverLocal)
+
 }
