@@ -1,6 +1,7 @@
 package com.amirhusseinsoori.template.db
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Chat
@@ -12,10 +13,13 @@ import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transa
 interface MyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDataDao(diverDao: DiverResponse): Long
+    suspend fun insertDataDao(tranDao: DiverResponse): Long
 
-    @Query("SELECT * FROM diverResponse")
-    fun getAllDataDao(): List<DiverResponse>
+//    @Query("SELECT * FROM diverResponse")
+//    fun getAllDataDao(): List<DiverResponse>
+
+    @Query("SELECT * FROM diverResponse ORDER BY id DESC")
+    fun getAllPaged(): PagingSource<Int, DiverResponse>
 }
 
 

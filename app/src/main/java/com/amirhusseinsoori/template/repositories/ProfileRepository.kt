@@ -26,7 +26,8 @@ class ProfileRepository @Inject constructor(
 
 
     //local
-    fun getAllDataRepository() =localDataSource.getAllDataSource()
+//    fun getAllDataRepository() =localDataSource.getAllDataSource()
+    fun getAllDataRepository() =localDataSource.items
     suspend fun insertAllDataRepository(diverLocal: DiverResponse) =localDataSource.insertAllDataSource(diverLocal)
 
 }

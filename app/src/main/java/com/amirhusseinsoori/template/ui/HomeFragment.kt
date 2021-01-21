@@ -36,6 +36,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     var getDetails = ArrayList<DiverResponse>()
     private var localList = ArrayList<DiverResponse>()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //  getDetails()
@@ -44,7 +45,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
         showDiver()
         onSubscribeShowDiver()
-        localList=viewModel.getAllDataProfileViewModel() as ArrayList<DiverResponse>
+//        localList = viewModel.getAllDataProfileViewModel() as ArrayList<DiverResponse>
 
 
     }
@@ -55,54 +56,54 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     }
 
 
-
     private fun onSubscribeShowDiver() {
-
 
 
         viewModel.getShowDetailsDiver.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data.let {
-
-
-
-
-
-
-
                         details = it!!.transactions!! as ArrayList<Transaction>
 
-                      viewModel.insertAllDataProfileViewModel(it)
-                        adapterHome!!.differ.submitList( localList[0].transactions)
 
-                     Log.e("list", "${viewModel.getAllDataProfileViewModel()} ")
 
+
+
+                            viewModel.insertAllDataProfileViewModel(it)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        Log.e("list", "${viewModel.getAllDataProfileViewModel()} ")
+                        getAllItem()
                         rvMain.apply {
                             adapter = adapterHome
                             layoutManager = LinearLayoutManager(
                                 requireContext(),
                                 LinearLayoutManager.VERTICAL, false
                             )
-
-
                         }
 
-
                     }
-
-
-
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.data!!}")
-
-
                 }
                 is ApiWrapper.ApiError -> {
                     Log.e(TAG, "onSubscribeShowDiver:${response.totalError} ")
                     toastError()
                 }
                 is ApiWrapper.NetworkError -> {
-                    adapterHome!!.differ.submitList( localList[0].transactions)
+                    getAllItem()
                     rvMain.apply {
                         adapter = adapterHome
                         layoutManager = LinearLayoutManager(
@@ -112,6 +113,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
 
                     }
+
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
                     toastNet()
                 }
@@ -128,6 +130,11 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
 
     }
+    private fun getAllItem(){
+        viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
+            adapterHome!!.submitData(viewLifecycleOwner.lifecycle, it)
 
+        })
+    }
 
 }

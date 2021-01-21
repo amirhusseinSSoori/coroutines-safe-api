@@ -3,9 +3,12 @@ package com.amirhusseinsoori.template.ui.viewmodel
 import android.provider.ContactsContract
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.SampleResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
+import com.amirhusseinsoori.template.api.responses.response.diverResponse.TransactionX
 
 
 import com.amirhusseinsoori.template.repositories.ProfileRepository
@@ -39,7 +42,10 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
 
 
     //local
-    fun getAllDataProfileViewModel() = repository.getAllDataRepository()
+    fun getAllDataProfileViewModel(): LiveData<PagingData<DiverResponse>> {
+        return repository.getAllDataRepository().cachedIn(viewModelScope)
+    }
+
     fun insertAllDataProfileViewModel(diverResponse: DiverResponse) {
         viewModelScope.launch {
             repository.insertAllDataRepository(diverResponse)
