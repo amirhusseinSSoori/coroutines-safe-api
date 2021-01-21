@@ -15,7 +15,7 @@ interface MyDao {
         suspend fun insertDataDao(diverDao: DiverResponse): Long
 
         @Query("SELECT * FROM diverResponse")
-        fun getAllDataDao(): List<DiverResponse>
+        fun getAllDataDao(): LiveData<DiverResponse>
 
 
 }

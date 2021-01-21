@@ -25,6 +25,8 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
         get() = showDetailsDiver
 
 
+
+
     fun showDiver(token: String) {
         viewModelScope.launch {
             showDetailsDiver.value = repository.getDiverRemote(token)
@@ -41,16 +43,22 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
         get() = showDetails
 
 
+
     //local
-    //local
-    fun getAllDataProfileViewModel() = repository.getAllDataRepository()
+    fun getAllDataProfileViewModel() =   repository.getAllDataRepository()
+
+
+
+
     fun insertAllDataProfileViewModel(diverResponse: DiverResponse) {
         viewModelScope.launch {
-            repository.insertAllDataRepository(diverResponse)
+           repository.insertAllDataRepository(diverResponse)
         }
 
 
     }
+
+
 }
 
 

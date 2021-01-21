@@ -28,7 +28,6 @@ object RoomModule {
                 DATABASE_NAME
             )
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
             .build()
     }
 

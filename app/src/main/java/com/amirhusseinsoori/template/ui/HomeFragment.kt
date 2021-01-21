@@ -17,6 +17,8 @@ import com.example.template.api.safe.ApiWrapper
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -35,8 +37,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
     @Inject
     lateinit var time: SetTime
-    var details = ArrayList<Transaction>()
-    var getDetails = ArrayList<DiverResponse>()
+
     private var localList = ArrayList<DiverResponse>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,8 +48,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
         showDiver()
         onSubscribeShowDiver()
-        localList=viewModel.
-        getAllDataProfileViewModel() as ArrayList<DiverResponse>
+
 
 
     }
@@ -57,13 +57,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     private fun showDiver() {
         viewModel.showDiver(Constance.TOKEN)
     }
-
-
-
     private fun onSubscribeShowDiver() {
-
-
-
         viewModel.getShowDetailsDiver.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is ApiWrapper.Success -> {
@@ -71,51 +65,32 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
 
 
-
-
-
-
-                        details = it!!.transactions!! as ArrayList<Transaction>
-
-                        viewModel.insertAllDataProfileViewModel(it)
-                        adapterHome!!.differ.submitList(details)
-
-                        Log.e("list", "$localList ")
-
-                        rvMain.apply {
-                            adapter = adapterHome
-                            layoutManager = LinearLayoutManager(
-                                requireContext(),
-                                LinearLayoutManager.VERTICAL, false
-                            )
-
-
-                        }
+                            viewModel.insertAllDataProfileViewModel(it!!)
+                            setUpRecyclerView(it!!.transactions!! as ArrayList<Transaction>)
 
 
                     }
-
-
-
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.data!!}")
-
-
                 }
                 is ApiWrapper.ApiError -> {
                     Log.e(TAG, "onSubscribeShowDiver:${response.totalError} ")
                     toastError()
                 }
                 is ApiWrapper.NetworkError -> {
-                    adapterHome!!.differ.submitList( localList[1].transactions)
-                    rvMain.apply {
-                        adapter = adapterHome
-                        layoutManager = LinearLayoutManager(
-                            requireContext(),
-                            LinearLayoutManager.VERTICAL, false
-                        )
 
 
-                    }
+                        viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner,{
+                            setUpRecyclerView(it.transactions!! as ArrayList<Transaction>)
+                        })
+
+
+
+
+
+
+
+
+
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
                     toastNet()
                 }
@@ -131,6 +106,20 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
         })
 
 
+    }
+
+
+    private fun setUpRecyclerView(data: ArrayList<Transaction>) {
+        adapterHome!!.differ.submitList(data)
+        rvMain.apply {
+            adapter = adapterHome
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL, false
+            )
+
+
+        }
     }
 
 
