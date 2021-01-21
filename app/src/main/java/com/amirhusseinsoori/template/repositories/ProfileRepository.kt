@@ -25,9 +25,9 @@ class ProfileRepository @Inject constructor(
     suspend fun getDiverRemote(token: String): ApiWrapper<DiverResponse> = remote.diverRemote(token)
 
 
+
     //local
-//    fun getAllDataRepository() =localDataSource.getAllDataSource()
-    fun getAllDataRepository() =localDataSource.items
+    fun getAllDataRepository() =localDataSource.getAllDataSource()
     suspend fun insertAllDataRepository(diverLocal: DiverResponse) =localDataSource.insertAllDataSource(diverLocal)
 
 }

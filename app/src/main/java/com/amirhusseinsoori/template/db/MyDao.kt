@@ -11,15 +11,13 @@ import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transa
 
 @Dao
 interface MyDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDataDao(tranDao: DiverResponse): Long
+        suspend fun insertDataDao(diverDao: DiverResponse): Long
 
-//    @Query("SELECT * FROM diverResponse")
-//    fun getAllDataDao(): List<DiverResponse>
+        @Query("SELECT * FROM diverResponse")
+        fun getAllDataDao(): List<DiverResponse>
 
-    @Query("SELECT * FROM diverResponse ORDER BY id DESC")
-    fun getAllPaged(): PagingSource<Int, DiverResponse>
+
 }
 
 

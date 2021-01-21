@@ -42,17 +42,15 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
 
 
     //local
-    fun getAllDataProfileViewModel(): LiveData<PagingData<DiverResponse>> {
-        return repository.getAllDataRepository().cachedIn(viewModelScope)
-    }
-
+    //local
+    fun getAllDataProfileViewModel() = repository.getAllDataRepository()
     fun insertAllDataProfileViewModel(diverResponse: DiverResponse) {
         viewModelScope.launch {
             repository.insertAllDataRepository(diverResponse)
         }
+
+
     }
-
-
 }
 
 
