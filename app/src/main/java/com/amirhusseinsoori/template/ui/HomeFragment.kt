@@ -62,12 +62,10 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data.let {
+                        GlobalScope.launch {
+                                  viewModel.insertAllDataProfileViewModel(it!!) }
 
-
-
-                            viewModel.insertAllDataProfileViewModel(it!!)
-                            setUpRecyclerView(it!!.transactions!! as ArrayList<Transaction>)
-
+                        setUpRecyclerView(it!!.transactions!! as ArrayList<Transaction>)
 
                     }
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.data!!}")
@@ -79,9 +77,11 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                 is ApiWrapper.NetworkError -> {
 
 
-                        viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner,{
-                            setUpRecyclerView(it.transactions!! as ArrayList<Transaction>)
-                        })
+                            viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner,{
+                                setUpRecyclerView(it.transactions!! as ArrayList<Transaction>)
+                            })
+
+
 
 
 
