@@ -50,20 +50,20 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
         onSubscribeShowDiver()
 
 
-
     }
 
 
     private fun showDiver() {
         viewModel.showDiver(Constance.TOKEN)
     }
+
     private fun onSubscribeShowDiver() {
         viewModel.getShowDetailsDiver.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is ApiWrapper.Success -> {
                     response.data.let {
-                        GlobalScope.launch {
-                                  viewModel.insertAllDataProfileViewModel(it!!) }
+
+                        viewModel.insertAllDataProfileViewModel(it!!)
 
                         setUpRecyclerView(it!!.transactions!! as ArrayList<Transaction>)
 
@@ -77,9 +77,10 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                 is ApiWrapper.NetworkError -> {
 
 
-                            viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner,{
-                                setUpRecyclerView(it.transactions!! as ArrayList<Transaction>)
-                            })
+                    viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
+                        setThrowable {
+                            setUpRecyclerView(it.transactions!!  as ArrayList<Transaction>)
+                        } })
 
 
 
@@ -111,8 +112,10 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
     private fun setUpRecyclerView(data: ArrayList<Transaction>) {
         adapterHome!!.differ.submitList(data)
+        adapterHome!!.setHasStableIds(true);
         rvMain.apply {
             adapter = adapterHome
+            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.VERTICAL, false

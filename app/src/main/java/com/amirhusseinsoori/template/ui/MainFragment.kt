@@ -83,6 +83,16 @@ open class MainFragment(@LayoutRes val contentLayoutId: Int) :Fragment() {
         return timer!!
     }
 
+    fun setThrowable(throwable:()->Unit){
+
+        try {
+            throwable.invoke()
+        }catch (ex:Throwable){
+            ex.message
+        }
+
+    }
+
 
 
     fun onMyBackPressed(owner: LifecycleOwner ,call: () -> Unit) {

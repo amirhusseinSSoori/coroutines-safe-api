@@ -66,7 +66,8 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     time.time(currentItem.transaction.creation_time.toString())
                 holder.itemView.txt_homeF_name.text =
                     currentItem.properties?.getOrNull(0)?.values?.user_fullname
-                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url)
+                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
                     .placeholder(R.drawable.user).error(R.drawable.user)
                     .into(holder.itemView.img_homeF_profile)
             }
@@ -89,7 +90,8 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     time.time(currentItem.transaction.creation_time.toString())
                 holder.itemView.txt_homeF_name.text =
                     currentItem.properties?.getOrNull(0)?.values?.user_fullname
-                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url)
+                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
                     .placeholder(R.drawable.user).error(R.drawable.user)
                     .into(holder.itemView.img_homeF_profile)
             }
@@ -104,7 +106,8 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                 holder.itemView.txt_homeF_status.visibility = View.GONE
 
                 holder.itemView.txt_homeF_cost.setTextColor(Color.parseColor("#0AB571"))
-                picasso.load(R.drawable.diver_cash)
+                picasso.load(R.drawable.diver_cash).resize(515, 400)
+                    .centerCrop()
                     .placeholder(R.drawable.user).error(R.drawable.user)
                     .into(holder.itemView.img_homeF_profile)
             }
@@ -125,6 +128,8 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                 holder.itemView.txt_homeF_history.text =
                     time.time(currentItem.transaction.creation_time.toString())
                 picasso.load(currentItem.properties?.getOrNull(0)?.values?.user_fullname)
+                    .resize(515, 400)
+                    .centerCrop()
                     .placeholder(R.drawable.user).error(R.drawable.user)
                     .into(holder.itemView.img_homeF_profile)
             }
@@ -149,7 +154,8 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     time.time(currentItem.transaction.creation_time.toString())
                 holder.itemView.txt_homeF_name.text =
                     currentItem.properties?.getOrNull(0)?.values?.user_fullname
-                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url)
+                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
                     .placeholder(R.drawable.user).error(R.drawable.user)
                     .into(holder.itemView.img_homeF_profile)
             }
@@ -169,7 +175,8 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
                     time.time(currentItem.transaction.creation_time.toString())
                 holder.itemView.txt_homeF_name.text =
                     currentItem.properties?.getOrNull(0)?.values?.user_fullname
-                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url)
+                picasso.load(currentItem.user_avatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
                     .placeholder(R.drawable.user).error(R.drawable.user)
                     .into(holder.itemView.img_homeF_profile)
             }
@@ -201,9 +208,11 @@ class HomeAdapter(var time: SetTime, val picasso: Picasso) :
         }
 
     }
+
     override fun getItemViewType(position: Int): Int {
         return position
     }
+
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
