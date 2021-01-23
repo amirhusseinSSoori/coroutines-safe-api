@@ -7,6 +7,7 @@ import androidx.paging.liveData
 import androidx.room.Dao
 import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
+import com.amirhusseinsoori.template.db.DiverEntity
 import com.amirhusseinsoori.template.db.MyDao
 import com.amirhusseinsoori.template.db.MyDataBase
 
@@ -17,6 +18,6 @@ class LocalDataSource @Inject constructor(
 
 ) {
     fun getAllDataSource() = dao.getAllDataDao()
-    suspend fun insertAllDataSource(diverLocal:DiverResponse) = dao.insertDataDao(diverLocal)
+    suspend fun insertAllDataSource(diverLocal: DiverEntity) = dao.insertDataDao(diverLocal)
 
 }

@@ -9,6 +9,7 @@ import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.SampleResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.TransactionX
+import com.amirhusseinsoori.template.db.DiverEntity
 
 
 import com.amirhusseinsoori.template.repositories.ProfileRepository
@@ -50,7 +51,7 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
 
 
 
-    fun insertAllDataProfileViewModel(diverResponse: DiverResponse) {
+    fun insertAllDataProfileViewModel(diverResponse: DiverEntity) {
         viewModelScope.launch {
            repository.insertAllDataRepository(diverResponse)
         }

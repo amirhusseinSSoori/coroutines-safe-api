@@ -8,14 +8,15 @@ import com.amirhusseinsoori.template.db.Converter
 
 
 data class Transaction(
-    @Embedded
-    val chat: Chat?=null,
-    @Embedded
-    val contact: Contact?=null,
-    @TypeConverters(Converter::class)
-    val properties: List<Property>?=null,
-    @Embedded
-    val transaction: TransactionX?=null,
-    val user: User?=null,
-    @TypeConverters(Converter::class)
-    val user_avatars: List<UserAvatar>?=null)
+
+    val chat: Chat? = null,
+
+    val contact: Contact? = null,
+
+    val properties: List<Property>? = null,
+
+    val transaction: TransactionX? = null,
+    val user: User? = null,
+
+    val user_avatars: List<UserAvatar>? = null
+)

@@ -5,6 +5,7 @@ import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.SampleResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Chat
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
+import com.amirhusseinsoori.template.db.DiverEntity
 import com.amirhusseinsoori.template.sources.LocalDataSource
 import com.amirhusseinsoori.template.sources.RemoteDataSource
 import com.example.template.api.safe.ApiWrapper
@@ -28,6 +29,6 @@ class ProfileRepository @Inject constructor(
 
     //local
     fun getAllDataRepository() =localDataSource.getAllDataSource()
-    suspend fun insertAllDataRepository(diverLocal: DiverResponse) =localDataSource.insertAllDataSource(diverLocal)
+    suspend fun insertAllDataRepository(diverLocal: DiverEntity) =localDataSource.insertAllDataSource(diverLocal)
 
 }

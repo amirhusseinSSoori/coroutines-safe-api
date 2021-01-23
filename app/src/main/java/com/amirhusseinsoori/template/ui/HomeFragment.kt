@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amirhusseinsoori.template.R
 import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
+import com.amirhusseinsoori.template.db.DiverEntity
+import com.amirhusseinsoori.template.db.subdiver.*
 import com.amirhusseinsoori.template.ui.Adapter.HomeAdapter
 import com.amirhusseinsoori.template.ui.viewmodel.ProfileViewModel
 import com.amirhusseinsoori.template.util.Constance
@@ -17,10 +18,6 @@ import com.example.template.api.safe.ApiWrapper
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 
@@ -63,7 +60,72 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                 is ApiWrapper.Success -> {
                     response.data.let {
 
-                        viewModel.insertAllDataProfileViewModel(it!!)
+                        viewModel.insertAllDataProfileViewModel(DiverEntity(
+                            it!!.receipt_uuid,
+                            it!!.response_code,
+                            it!!.response_value,
+                            it.transactions?.map { entity ->
+                                TransactionSubDiver(
+                                    ChatSubDiver(
+                                        entity.chat?.chat_id,
+                                        entity.chat?.message,
+                                        entity.chat?.status,
+                                        entity.chat?.tran_id,
+                                        entity.chat?.update_time,
+                                        entity.chat?.user_id
+                                    ),
+                                    ContactSubDiver(
+                                        entity.contact?.contact_id,
+                                        entity.contact?.first_name,
+                                        entity.contact?.is_registered,
+                                        entity.contact?.last_name,
+                                        entity.contact?.phone,
+                                        entity.contact?.user_id
+                                    ),
+                                    entity.properties?.map { property ->
+                                        PropertySubDiver(
+                                            property.code,
+                                            property.property_id,
+                                            property.tran_id,
+                                            ValuesSubDiver(
+                                                property.values?.passive_fullname,
+                                                property.values?.user_phone,
+                                                property.values?.user_fullname,
+                                                property.values?.user_phone
+                                            )
+                                        )
+                                    }, TransactionXSubDiver(
+                                        entity.transaction?.amount,
+                                        entity.transaction?.creation_time,
+                                        entity.transaction?.description,
+                                        entity.transaction?.status,
+                                        entity.transaction?.tran_id,
+                                        entity.transaction?.update_time,
+                                        entity.transaction?.user_id,
+                                        entity.transaction?.view_type
+                                    ), UserSubDiver(
+                                        entity.user?.about_me,
+                                        entity.user?.first_name,
+                                        entity.user?.last_name,
+                                        entity.user?.phone,
+                                        entity.user?.user_id,
+                                        entity.user?.username
+                                    ),
+                                    entity.user_avatars?.map {
+                                        UserAvatarSubDiver(
+                                            it.avatar_id,
+                                            it.update_time,
+                                            it.url,
+                                            it.user_id
+                                        )
+                                    }
+
+
+                                )
+                            }
+
+
+                        ))
 
                         setUpRecyclerView(it!!.transactions!! as ArrayList<Transaction>)
 
@@ -79,8 +141,9 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
                     viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
                         setThrowable {
-                            setUpRecyclerView(it.transactions!!  as ArrayList<Transaction>)
-                        } })
+                            Log.e("Tag", "onSubscribeShowDiver: ${it}")
+                        }
+                    })
 
 
 

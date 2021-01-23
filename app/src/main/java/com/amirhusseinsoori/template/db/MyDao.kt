@@ -12,10 +12,10 @@ import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transa
 @Dao
 interface MyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-        suspend fun insertDataDao(diverDao: DiverResponse): Long
+        suspend fun insertDataDao(diverDao: DiverEntity): Long
 
-        @Query("SELECT * FROM diverResponse")
-        fun getAllDataDao(): LiveData<DiverResponse>
+        @Query("SELECT * FROM diverEntity")
+        fun getAllDataDao(): LiveData<DiverEntity>
 
 
 }
