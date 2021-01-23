@@ -5,17 +5,17 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
-    <fragment
+    <keep_state_fragment
         android:id="@+id/homeFragment"
         tools:layout="@layout/fragment_home"
         android:name="com.amirhusseinsoori.template.ui.HomeFragment"
         android:label="HomeFragment" />
-    <fragment
+    <keep_state_fragment
         android:id="@+id/contactFragment"
         tools:layout="@layout/fragment_contact"
         android:name="com.amirhusseinsoori.template.ui.ContactFragment"
         android:label="ContactFragment" />
-    <fragment
+    <keep_state_fragment
         android:id="@+id/settingFragment"
         tools:layout="@layout/fragment_setting"
         android:name="com.amirhusseinsoori.template.ui.SettingFragment"
