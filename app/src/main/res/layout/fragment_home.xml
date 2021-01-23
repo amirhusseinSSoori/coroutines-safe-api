@@ -20,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
         android:id="@+id/btnRequest"
         android:layout_width="0dp"
@@ -31,6 +30,7 @@
         android:layout_marginRight="@dimen/marginRightLeftBtn"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_request_btn"
+        android:fontFamily="@font/iransanse_medium"
         android:text="@string/txtRequest"
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp"
@@ -52,6 +52,7 @@
         android:layout_marginRight="@dimen/marginRightLeftBtn"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_send_btn"
+        android:fontFamily="@font/iransanse_medium"
         android:text="@string/txtSend"
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp"
@@ -89,10 +90,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:fontFamily="@font/vazir_medium_fd"
+        android:fontFamily="@font/iransanse_medium"
         android:text="@string/txt_price_one"
         android:textColor="@color/white"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/_14sdp"
         app:layout_constraintBottom_toBottomOf="@+id/img_plus"
         app:layout_constraintStart_toEndOf="@+id/img_plus"
         app:layout_constraintTop_toTopOf="@+id/img_plus" />
@@ -102,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/vazir_medium_fd"
-        android:text="موجودی"
+        android:text="@string/price"
         android:textColor="@color/white"
         android:textSize="@dimen/_8sdp"
         android:visibility="visible"
@@ -114,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/vazir_medium_fd"
-        android:text="تومان"
+        android:text="@string/toman"
         android:textColor="@color/white"
         android:textSize="@dimen/_8sdp"
         android:visibility="visible"
@@ -134,29 +135,43 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@id/txt_cost" />
-<FrameLayout
-    android:id="@+id/containerUp"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_35sdp"
-    android:layout_margin="@dimen/_2sdp"
-    android:background="@drawable/bg_container_search"
-    app:layout_constraintTop_toBottomOf="@id/container"/>
+
+    <FrameLayout
+        android:id="@+id/containerUp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_2sdp"
+        android:background="@drawable/bg_container_search"
+        app:layout_constraintTop_toBottomOf="@id/container" />
 
 
+    <ImageView
+        android:id="@+id/searchImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:background="@drawable/ic_search"
+        app:layout_constraintBottom_toBottomOf="@id/containerUp"
+        app:layout_constraintLeft_toLeftOf="@id/containerUp"
+        app:layout_constraintTop_toBottomOf="@id/containerUp"
+        app:layout_constraintTop_toTopOf="@id/containerUp" />
 
-        <ImageView
-            android:id="@+id/searchImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/containerUp"
-            app:layout_constraintLeft_toLeftOf="@id/containerUp"
-            app:layout_constraintTop_toBottomOf="@id/containerUp"
-            app:layout_constraintBottom_toBottomOf="@id/containerUp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:background="@drawable/ic_search"/>
+<EditText
+    android:id="@+id/ed_search"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:hint="@string/search"
+    android:background="@null"
+    android:maxLines="1"
+    android:maxLength="30"
+    android:layout_marginEnd="@dimen/_5sdp"
+    app:layout_constraintLeft_toRightOf="@id/searchImg"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="@id/containerUp"
+    app:layout_constraintTop_toTopOf="@id/containerUp"
+    android:fontFamily="@font/iransanse_medium"
 
-
-
+    />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMain"
         android:layout_width="match_parent"

@@ -21,5 +21,9 @@
     <string name="requestFromYou">درخواست شما از</string>
     <string name="redtxt">#F93737</string>
     <string name="greentxt">#0AB571</string>
+    <string name="this_is_a_custom_toast">this is a custom toast</string>
+    <string name="price">موجودی</string>
+    <string name="toman">تومان</string>
+    <string name="search">جستجو...</string>
 
 </resources>
