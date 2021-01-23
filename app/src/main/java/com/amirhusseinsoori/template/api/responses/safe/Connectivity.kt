@@ -4,15 +4,22 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.amirhusseinsoori.template.util.Constance
 import com.amirhusseinsoori.template.util.NoInternetException
 
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 
 class Connectivity(private val context: Context): Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
+        val newRequest: Request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer ${Constance.TOKEN}")
+            .build()
+
+
         if (!isInternetAvailable(context)) throw NoInternetException("Please Check Your Connectivity")
-            return chain.proceed(chain.request())
+            return chain.proceed(newRequest)
     }
 
     private fun isInternetAvailable(context: Context): Boolean {

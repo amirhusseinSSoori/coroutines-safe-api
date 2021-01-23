@@ -2,12 +2,17 @@ package com.amirhusseinsoori.template.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amirhusseinsoori.template.R
 import com.amirhusseinsoori.template.api.responses.response.DiverResponse
 import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
+import com.amirhusseinsoori.template.databinding.FragmentHomeBinding
 import com.amirhusseinsoori.template.db.DiverEntity
 import com.amirhusseinsoori.template.db.subdiver.*
 import com.amirhusseinsoori.template.ui.Adapter.HomeAdapter
@@ -22,7 +27,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class HomeFragment : MainFragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home) {
     private val TAG = "ProfileFragment"
 
 
@@ -35,23 +40,34 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     @Inject
     lateinit var time: SetTime
 
-    private var localList = ArrayList<DiverResponse>()
     var adapterHome: HomeAdapter? = null
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get()=_binding!!
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding= FragmentHomeBinding.inflate(inflater,container,false)
+        return binding!!.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //  getDetails()
+
         adapterHome = HomeAdapter(time, picasso)
+
 
 
         showDiver()
         onSubscribeShowDiver()
-
+        setUpRecyclerView()
 
     }
 
 
     private fun showDiver() {
-        viewModel.showDiver(Constance.TOKEN)
+        viewModel.showDiver()
     }
 
     private fun onSubscribeShowDiver() {
@@ -128,10 +144,11 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                         ))
 
                         viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
-                            setThrowable {
+//                            setThrowable {
                                 Log.e("Tag", "onSubscribeShowDiver: ${it}")
-                                setUpRecyclerView(it.transactions!! as ArrayList<TransactionSubDiver>)
-                            }
+                            adapterHome!!.differ.submitList(it.transactions)
+
+//                            }
                         })
 
                     }
@@ -139,16 +156,16 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                 }
                 is ApiWrapper.ApiError -> {
                     Log.e(TAG, "onSubscribeShowDiver:${response.totalError} ")
-                    toastError()
+//                    toastError()
                 }
                 is ApiWrapper.NetworkError -> {
 
 
                     viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
-                        setThrowable {
+//                        setThrowable {
                             Log.e("Tag", "onSubscribeShowDiver: ${it}")
-                            setUpRecyclerView(it.transactions!! as ArrayList<TransactionSubDiver>)
-                        }
+                           adapterHome!!.differ.submitList(it.transactions)
+//                        }
                     })
 
 
@@ -163,11 +180,11 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
 
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
-                    toastNet()
+//                    toastNet()
                 }
                 is ApiWrapper.UnknownError -> {
                     Log.e(TAG, "onSubscribeShowDiver: ${response.message}")
-                    toastError()
+//                    toastError()
                 }
 
 
@@ -180,10 +197,10 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     }
 
 
-    private fun setUpRecyclerView(data: ArrayList<TransactionSubDiver>) {
-        adapterHome!!.differ.submitList(data)
+    private fun setUpRecyclerView() {
         adapterHome!!.setHasStableIds(true);
-        rvMain.apply {
+        binding.apply {
+            rvMain.apply {
             adapter = adapterHome
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(
@@ -192,8 +209,13 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
             )
 
 
+
+        }
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding=null
+    }
 }

@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -117,8 +121,8 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.1'
 
     // Socket
-    implementation ('com.github.nkzawa:socket.io-client:0.6.0',{
-        exclude group:'org.json',module:'json'
+    implementation('com.github.nkzawa:socket.io-client:0.6.0', {
+        exclude group: 'org.json', module: 'json'
     })
 
     // country picker
