@@ -18,12 +18,9 @@ class ProfileViewModel @ViewModelInject constructor(var repository: ProfileRepos
     val getShowDetailsDiver: LiveData<ApiWrapper<DiverResponse>>
         get() = showDetailsDiver
 
-
-
-
-    fun showDiver() {
+    fun showDetailsNetworkDiver() {
         viewModelScope.launch {
-            showDetailsDiver.value = repository.getDiverRemote()
+            showDetailsDiver.value = repository.diverDataNetworkRepository()
         }
     }
 

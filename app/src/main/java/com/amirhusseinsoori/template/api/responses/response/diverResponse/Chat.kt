@@ -5,9 +5,15 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class Chat(
-    val chat_id: Int?=null,
+    @SerializedName("chat_id")
+    val chatID: Int?=null,
+    @SerializedName("message")
     val message: String?=null,
+    @SerializedName("status")
     val status: Int?=null,
-    val tran_id: Int?=null,
-    val update_time: Long?=null,
-    val user_id: Int?=null)
+    @SerializedName("tran_id")
+    val tranId: Int?=null,
+    @SerializedName("update_time")
+    val updateTime: Long?=null,
+    @SerializedName("user_id")
+    val userId: Int?=null)

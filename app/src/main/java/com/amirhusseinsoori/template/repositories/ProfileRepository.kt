@@ -11,17 +11,17 @@ import javax.inject.Inject
 
 class ProfileRepository @Inject constructor(
     private val remote: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+    private val local: LocalDataSource
 
 ) {
 
     //network
-    suspend fun getDiverRemote(): ApiWrapper<DiverResponse> = remote.diverRemote()
+    suspend fun diverDataNetworkRepository(): ApiWrapper<DiverResponse> = remote.diverDataNetwork()
 
 
 
     //local
-    fun getAllDataRepository() =localDataSource.getAllDataSource()
-    suspend fun insertAllDataRepository(diverLocal: DiverEntity) =localDataSource.insertAllDataSource(diverLocal)
+    fun getAllDataRepository() =local.getAllDataSource()
+    suspend fun insertAllDataRepository(Local: DiverEntity) =local.insertAllDataSource(Local)
 
 }

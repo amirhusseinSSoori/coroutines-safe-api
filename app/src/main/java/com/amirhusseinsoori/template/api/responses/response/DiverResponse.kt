@@ -9,11 +9,15 @@ import com.amirhusseinsoori.template.db.Converter
 import com.google.gson.annotations.SerializedName
 
 data class DiverResponse(
-    val receipt_uuid: String? = null,
-    val response_code: Int? = null,
-    val response_value: List<Any>? = null,
+    @SerializedName("receipt_uuid")
+    val receiptUuId: String? = null,
+    @SerializedName("response_code")
+    val responseCode: Int? = null,
+    @SerializedName("response_value")
+    val responseValue: List<Any>? = null,
+    @SerializedName("transactions")
     val transactions: List<Transaction>? = null,
 
-)
+    )
 
 

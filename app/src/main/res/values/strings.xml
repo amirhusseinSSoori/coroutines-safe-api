@@ -10,4 +10,16 @@
     <string name="textdescription">ازشما</string>
     <string name="textRequest">دریافت از</string>
     <string name="rejected">رد شده</string>
+    <string name="send_to">ارسال از</string>
+    <string name="receive_to">دریافت از</string>
+    <string name="newRequest">درخواست جدید</string>
+    <string name="completed">پذیرفته شد</string>
+    <string name="cashIn">شارژ دایور</string>
+    <string name="cashOut">برداشت از دایور</string>
+    <string name="watting">در انتظار</string>
+    <string name="Request">درخواست</string>
+    <string name="requestFromYou">درخواست شما از</string>
+    <string name="redtxt">#F93737</string>
+    <string name="greentxt">#0AB571</string>
+
 </resources>

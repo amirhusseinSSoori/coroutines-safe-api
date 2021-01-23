@@ -1,35 +1,31 @@
 package com.amirhusseinsoori.template.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.fragment.app.Fragment
+import android.widget.TextView
+
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amirhusseinsoori.template.R
-import com.amirhusseinsoori.template.api.responses.response.DiverResponse
-import com.amirhusseinsoori.template.api.responses.response.diverResponse.Transaction
-import com.amirhusseinsoori.template.databinding.FragmentHomeBinding
+
 import com.amirhusseinsoori.template.db.DiverEntity
 import com.amirhusseinsoori.template.db.subdiver.*
 import com.amirhusseinsoori.template.ui.Adapter.HomeAdapter
 import com.amirhusseinsoori.template.ui.viewmodel.ProfileViewModel
-import com.amirhusseinsoori.template.util.Constance
 import com.amirhusseinsoori.template.util.SetTime
 import com.example.template.api.safe.ApiWrapper
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData {
     private val TAG = "ProfileFragment"
-
 
 
     private val viewModel: ProfileViewModel by viewModels()
@@ -39,26 +35,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     @Inject
     lateinit var time: SetTime
-
     var adapterHome: HomeAdapter? = null
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get()=_binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding= FragmentHomeBinding.inflate(inflater,container,false)
-        return binding!!.root
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapterHome = HomeAdapter(time, picasso)
-
-
-
+        adapterHome = HomeAdapter(this)
         showDiver()
         onSubscribeShowDiver()
         setUpRecyclerView()
@@ -67,7 +50,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun showDiver() {
-        viewModel.showDiver()
+        viewModel.showDetailsNetworkDiver()
     }
 
     private fun onSubscribeShowDiver() {
@@ -77,62 +60,62 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     response.data.let {
 
                         viewModel.insertAllDataProfileViewModel(DiverEntity(
-                            it!!.receipt_uuid,
-                            it!!.response_code,
-                            it!!.response_value,
+                            it!!.receiptUuId,
+                            it.responseCode,
+                            it.responseValue,
                             it.transactions?.map { entity ->
-                                TransactionSubDiver(
-                                    ChatSubDiver(
-                                        entity.chat?.chat_id,
+                                TransactionSubEntity(
+                                    ChatSubEntity(
+                                        entity.chat?.chatID,
                                         entity.chat?.message,
                                         entity.chat?.status,
-                                        entity.chat?.tran_id,
-                                        entity.chat?.update_time,
-                                        entity.chat?.user_id
+                                        entity.chat?.tranId,
+                                        entity.chat?.updateTime,
+                                        entity.chat?.userId
                                     ),
-                                    ContactSubDiver(
-                                        entity.contact?.contact_id,
-                                        entity.contact?.first_name,
-                                        entity.contact?.is_registered,
-                                        entity.contact?.last_name,
+                                    ContactSubEntity(
+                                        entity.contact?.contactId,
+                                        entity.contact?.firstName,
+                                        entity.contact?.isRegistered,
+                                        entity.contact?.lastName,
                                         entity.contact?.phone,
-                                        entity.contact?.user_id
+                                        entity.contact?.userId
                                     ),
                                     entity.properties?.map { property ->
-                                        PropertySubDiver(
+                                        PropertySubEntity(
                                             property.code,
-                                            property.property_id,
-                                            property.tran_id,
-                                            ValuesSubDiver(
-                                                property.values?.passive_fullname,
-                                                property.values?.user_phone,
-                                                property.values?.user_fullname,
-                                                property.values?.user_phone
+                                            property.propertyID,
+                                            property.tranId,
+                                            ValuesSubEntity(
+                                                property.values?.passiveFullName,
+                                                property.values?.userPhone,
+                                                property.values?.userFullName,
+                                                property.values?.userPhone
                                             )
                                         )
-                                    }, TransactionXSubDiver(
+                                    }, TransactionXSubEntity(
                                         entity.transaction?.amount,
-                                        entity.transaction?.creation_time,
+                                        entity.transaction?.creationTime,
                                         entity.transaction?.description,
                                         entity.transaction?.status,
-                                        entity.transaction?.tran_id,
-                                        entity.transaction?.update_time,
-                                        entity.transaction?.user_id,
-                                        entity.transaction?.view_type
-                                    ), UserSubDiver(
+                                        entity.transaction?.tranId,
+                                        entity.transaction?.updateTime,
+                                        entity.transaction?.userId,
+                                        entity.transaction?.viewType
+                                    ), UserSubEntity(
                                         entity.user?.about_me,
-                                        entity.user?.first_name,
-                                        entity.user?.last_name,
+                                        entity.user?.firstName,
+                                        entity.user?.lastName,
                                         entity.user?.phone,
-                                        entity.user?.user_id,
-                                        entity.user?.username
+                                        entity.user?.userID,
+                                        entity.user?.userName
                                     ),
-                                    entity.user_avatars?.map {
-                                        UserAvatarSubDiver(
-                                            it.avatar_id,
-                                            it.update_time,
-                                            it.url,
-                                            it.user_id
+                                    entity.userAvatars?.map {avatar->
+                                        UserAvatarSubEntity(
+                                            avatar.avatarId,
+                                            avatar.updateTime,
+                                            avatar.url,
+                                            avatar.userId
                                         )
                                     }
 
@@ -144,11 +127,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         ))
 
                         viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
-//                            setThrowable {
+                            setThrowable {
                                 Log.e("Tag", "onSubscribeShowDiver: ${it}")
-                            adapterHome!!.differ.submitList(it.transactions)
+                                adapterHome!!.differ.submitList(it.transactions)
 
-//                            }
+                            }
                         })
 
                     }
@@ -156,16 +139,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 is ApiWrapper.ApiError -> {
                     Log.e(TAG, "onSubscribeShowDiver:${response.totalError} ")
-//                    toastError()
+                    toastError()
                 }
                 is ApiWrapper.NetworkError -> {
 
 
                     viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
-//                        setThrowable {
+                        setThrowable {
                             Log.e("Tag", "onSubscribeShowDiver: ${it}")
-                           adapterHome!!.differ.submitList(it.transactions)
-//                        }
+                            adapterHome!!.differ.submitList(it.transactions)
+                        }
                     })
 
 
@@ -180,11 +163,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
-//                    toastNet()
+                    toastNet()
                 }
                 is ApiWrapper.UnknownError -> {
                     Log.e(TAG, "onSubscribeShowDiver: ${response.message}")
-//                    toastError()
+                    toastError()
                 }
 
 
@@ -199,8 +182,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setUpRecyclerView() {
         adapterHome!!.setHasStableIds(true);
-        binding.apply {
-            rvMain.apply {
+        rvMain.apply {
             adapter = adapterHome
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(
@@ -209,13 +191,190 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
 
 
-
-        }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding=null
+    override fun sendData(
+        txtName: TextView,
+        txtStatus: TextView,
+        txtRequest: TextView,
+        txtAboutCost: TextView,
+        txtCost: TextView,
+        txtHistory: TextView,
+        txtPlus: TextView,
+        txtDiver: TextView,
+        imgProfile: CircleImageView,
+        currentItem: TransactionSubEntity
+    ) {
+        when (currentItem.transaction!!.viewType) {
+            1 -> {
+                currentItem.transaction.status.let {
+                    if (checkStatus(it!!) == requireContext().resources.getString(R.string.rejected)) {
+                        txtStatus.setTextColor(
+                            Color.parseColor(
+                                requireContext().resources.getString(
+                                    R.string.redtxt
+                                )
+                            )
+                        )
+                        txtStatus.text = checkStatus(it)
+                    } else {
+                        txtStatus.text = checkStatus(it)
+                    }
+                }
+                txtRequest.text = requireContext().resources.getString(R.string.send_to)
+                txtAboutCost.text = currentItem.transaction.description
+                txtCost.text = currentItem.transaction.amount.toString()
+                txtHistory.text = time.time(currentItem.transaction.creationTime.toString())
+                txtName.text = currentItem.properties?.getOrNull(0)?.value?.userFullName
+                picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
+                    .placeholder(R.drawable.user).error(R.drawable.user)
+                    .into(imgProfile)
+            }
+            2 -> {
+                currentItem.transaction.status.let {
+                    if (checkStatus(it!!) == requireContext().resources.getString(R.string.rejected)) {
+                        txtStatus.setTextColor(
+                            Color.parseColor(
+                                requireContext().resources.getString(
+                                    R.string.redtxt
+                                )
+                            )
+                        )
+                        txtStatus.text = checkStatus(it)
+                    } else {
+                        txtStatus.text = checkStatus(it)
+                    }
+                }
+                txtRequest.text = requireContext().resources.getString(R.string.receive_to)
+                txtCost.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                txtPlus.visibility = View.VISIBLE
+                txtPlus.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                txtAboutCost.text = currentItem.transaction.description
+                txtCost.text = currentItem.transaction.amount.toString()
+                txtHistory.text = time.time(currentItem.transaction.creationTime.toString())
+                txtName.text =
+                    currentItem.properties?.getOrNull(0)?.value?.userFullName
+                picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
+                    .placeholder(R.drawable.user).error(R.drawable.user)
+                    .into(imgProfile)
+            }
+            3 -> {
+                txtRequest.text = requireContext().resources.getString(R.string.cashIn)
+                txtPlus.visibility = View.VISIBLE
+                txtPlus.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                txtDiver.visibility = View.VISIBLE
+                txtName.visibility = View.GONE
+                txtAboutCost.visibility = View.GONE
+                txtRequest.visibility = View.GONE
+                txtStatus.visibility = View.GONE
+
+                txtCost.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                picasso.load(R.drawable.diver_cash).resize(515, 400)
+                    .centerCrop()
+                    .placeholder(R.drawable.user).error(R.drawable.user)
+                    .into(imgProfile)
+            }
+
+
+            4 -> {
+                currentItem.transaction!!.status.let {
+                    if (checkStatus(it!!) == requireContext().resources.getString(R.string.rejected)) {
+                        txtStatus.setTextColor(
+                            Color.parseColor(
+                                requireContext().resources.getString(
+                                    R.string.redtxt
+                                )
+                            )
+                        )
+                        txtStatus.text = checkStatus(it)
+                    } else {
+                        txtStatus.text = checkStatus(it)
+                    }
+                }
+                txtRequest.text = requireContext().resources.getString(R.string.cashOut)
+                txtAboutCost.text = currentItem.transaction.description
+                txtCost.text = currentItem.transaction.amount.toString()
+                txtHistory.text = time.time(currentItem.transaction.creationTime.toString())
+                picasso.load(currentItem.properties?.getOrNull(0)?.value?.userFullName)
+                    .resize(515, 400)
+                    .centerCrop()
+                    .placeholder(R.drawable.user).error(R.drawable.user)
+                    .into(imgProfile)
+            }
+
+            5 -> {
+                currentItem.transaction.status.let {
+                    if (checkStatus(it!!) == requireContext().resources.getString(R.string.rejected)) {
+                        txtStatus.setTextColor(
+                            Color.parseColor(
+                                requireContext().resources.getString(
+                                    R.string.redtxt
+                                )
+                            )
+                        )
+                        txtStatus.text = checkStatus(it)
+                    } else {
+                        txtStatus.text = checkStatus(it)
+                    }
+                }
+
+                txtRequest.text = requireContext().resources.getString(R.string.requestFromYou)
+                txtRequest.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                txtPlus.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                txtCost.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                txtPlus.visibility = View.VISIBLE
+                txtAboutCost.text = currentItem.transaction!!.description
+                txtHistory.text =
+                    time.time(currentItem.transaction.creationTime.toString())
+                txtName.text =
+                    currentItem.properties?.getOrNull(0)?.value?.userFullName
+                picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
+                    .placeholder(R.drawable.user).error(R.drawable.user)
+                    .into(imgProfile)
+            }
+            6 -> {
+                currentItem.transaction.status.let {
+                    if (checkStatus(it!!) == requireContext().resources.getString(R.string.rejected)) {
+                        txtStatus.setTextColor(
+                            Color.parseColor(
+                                requireContext().resources.getString(
+                                    R.string.redtxt
+                                )
+                            )
+                        )
+                        txtStatus.text = checkStatus(it)
+                    } else {
+                        txtStatus.text = checkStatus(it)
+                    }
+                }
+                txtRequest.text = requireContext().resources.getString(R.string.Request)
+                txtRequest.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
+                txtCost.text = currentItem.transaction.amount.toString()
+                txtHistory.text =
+                    time.time(currentItem.transaction.creationTime.toString())
+                txtName.text = currentItem.properties?.getOrNull(0)?.value?.userFullName
+                picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
+                    .centerCrop()
+                    .placeholder(R.drawable.user).error(R.drawable.user)
+                    .into(imgProfile)
+            }
+
+        }
     }
+
+    private fun checkStatus(type: Int): String {
+        return when (type) {
+            0 -> requireContext().resources.getString(R.string.newRequest)
+            1 -> requireContext().resources.getString(R.string.completed)
+            2 -> requireContext().resources.getString(R.string.watting)
+            3 -> requireContext().resources.getString(R.string.rejected)
+            else -> ""
+        }
+
+    }
+
 }

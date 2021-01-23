@@ -2,10 +2,15 @@ package com.amirhusseinsoori.template.api.responses.response.diverResponse
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 
 data class UserAvatar(
-    val avatar_id: Int?=null,
-    val update_time: Long?=null,
+    @SerializedName("avatar_id")
+    val avatarId: Int?=null,
+    @SerializedName("update_time")
+    val updateTime: Long?=null,
+    @SerializedName("url")
     val url: String?=null,
-    val user_id: Int?=null)
+    @SerializedName("user_id")
+    val userId: Int?=null)

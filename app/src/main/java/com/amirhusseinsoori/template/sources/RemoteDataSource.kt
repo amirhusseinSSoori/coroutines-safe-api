@@ -10,13 +10,11 @@ import com.example.template.api.safe.ApiWrapper
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
-        private val myApi: MyApi
+    private val myApi: MyApi
 ) : SafeApi() {
 
 
-
-    suspend fun diverRemote():ApiWrapper<DiverResponse> =safeApi { myApi.getDetailsDiver() }
-
+    suspend fun diverDataNetwork(): ApiWrapper<DiverResponse> = safeApi { myApi.getDetailsDiver() }
 
 
 }
