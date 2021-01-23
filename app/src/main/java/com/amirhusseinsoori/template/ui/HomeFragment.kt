@@ -24,7 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : MainFragment(R.layout.fragment_home) {
     private val TAG = "ProfileFragment"
-    var adapterHome: HomeAdapter? = null
+
 
 
     private val viewModel: ProfileViewModel by viewModels()
@@ -36,7 +36,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     lateinit var time: SetTime
 
     private var localList = ArrayList<DiverResponse>()
-
+    var adapterHome: HomeAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //  getDetails()
@@ -127,7 +127,12 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
 
                         ))
 
-                        setUpRecyclerView(it!!.transactions!! as ArrayList<Transaction>)
+                        viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
+                            setThrowable {
+                                Log.e("Tag", "onSubscribeShowDiver: ${it}")
+                                setUpRecyclerView(it.transactions!! as ArrayList<TransactionSubDiver>)
+                            }
+                        })
 
                     }
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.data!!}")
@@ -142,8 +147,10 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
                     viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
                         setThrowable {
                             Log.e("Tag", "onSubscribeShowDiver: ${it}")
+                            setUpRecyclerView(it.transactions!! as ArrayList<TransactionSubDiver>)
                         }
                     })
+
 
 
 
@@ -173,7 +180,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home) {
     }
 
 
-    private fun setUpRecyclerView(data: ArrayList<Transaction>) {
+    private fun setUpRecyclerView(data: ArrayList<TransactionSubDiver>) {
         adapterHome!!.differ.submitList(data)
         adapterHome!!.setHasStableIds(true);
         rvMain.apply {
