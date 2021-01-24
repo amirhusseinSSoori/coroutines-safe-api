@@ -1,22 +1,17 @@
 package com.amirhusseinsoori.template.ui.Adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.amirhusseinsoori.template.R
 import com.amirhusseinsoori.template.db.subdiver.TransactionSubEntity
-import com.amirhusseinsoori.template.util.SetTime
-import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.custom_item_main.view.*
-import org.w3c.dom.Text
 
 
 class HomeAdapter( val data: PortData) :
@@ -70,18 +65,14 @@ class HomeAdapter( val data: PortData) :
     }
 
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    override fun getItemCount(): Int = differ.currentList.size
 
 
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
+    override fun getItemViewType(position: Int): Int = position
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+
+    override fun getItemId(position: Int): Long = position.toLong()
+
 
 
     interface PortData {

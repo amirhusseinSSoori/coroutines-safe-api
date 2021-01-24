@@ -14,12 +14,15 @@ import com.amirhusseinsoori.template.db.DiverEntity
 import com.amirhusseinsoori.template.db.subdiver.*
 import com.amirhusseinsoori.template.ui.Adapter.HomeAdapter
 import com.amirhusseinsoori.template.ui.viewmodel.ProfileViewModel
-import com.amirhusseinsoori.template.util.SetTime
+import com.amirhusseinsoori.template.util.CalendarTool
 import com.example.template.api.safe.ApiWrapper
+
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 
@@ -33,8 +36,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
     @Inject
     lateinit var picasso: Picasso
 
-    @Inject
-    lateinit var time: SetTime
+
     var adapterHome: HomeAdapter? = null
 
 
@@ -222,10 +224,11 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
                         txtStatus.text = checkStatus(it)
                     }
                 }
+
                 txtRequest.text = requireContext().resources.getString(R.string.send_to)
                 txtAboutCost.text = currentItem.transaction.description
                 txtCost.text = currentItem.transaction.amount.toString()
-                txtHistory.text = time.time(currentItem.transaction.creationTime.toString())
+                txtHistory.text = convertGregorianDateTimeToIranianDateTime(currentItem.transaction.creationTime.toString())
                 txtName.text = currentItem.properties?.getOrNull(0)?.value?.userFullName
                 picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
                     .centerCrop()
@@ -253,7 +256,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
                 txtPlus.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
                 txtAboutCost.text = currentItem.transaction.description
                 txtCost.text = currentItem.transaction.amount.toString()
-                txtHistory.text = time.time(currentItem.transaction.creationTime.toString())
+                txtHistory.text = convertGregorianDateTimeToIranianDateTime(currentItem.transaction.creationTime.toString())
                 txtName.text =
                     currentItem.properties?.getOrNull(0)?.value?.userFullName
                 picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
@@ -270,6 +273,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
                 txtAboutCost.visibility = View.GONE
                 txtRequest.visibility = View.GONE
                 txtStatus.visibility = View.GONE
+                txtHistory.text=convertGregorianDateTimeToIranianDateTime(currentItem.transaction.creationTime.toString())
 
                 txtCost.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
                 picasso.load(R.drawable.diver_cash).resize(515, 400)
@@ -297,7 +301,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
                 txtRequest.text = requireContext().resources.getString(R.string.cashOut)
                 txtAboutCost.text = currentItem.transaction.description
                 txtCost.text = currentItem.transaction.amount.toString()
-                txtHistory.text = time.time(currentItem.transaction.creationTime.toString())
+                txtHistory.text = convertGregorianDateTimeToIranianDateTime(currentItem.transaction.creationTime.toString())
                 picasso.load(currentItem.properties?.getOrNull(0)?.value?.userFullName)
                     .resize(515, 400)
                     .centerCrop()
@@ -327,10 +331,8 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
                 txtCost.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
                 txtPlus.visibility = View.VISIBLE
                 txtAboutCost.text = currentItem.transaction!!.description
-                txtHistory.text =
-                    time.time(currentItem.transaction.creationTime.toString())
-                txtName.text =
-                    currentItem.properties?.getOrNull(0)?.value?.userFullName
+                txtHistory.text =convertGregorianDateTimeToIranianDateTime(currentItem.transaction.creationTime.toString())
+                txtName.text = currentItem.properties?.getOrNull(0)?.value?.userFullName
                 picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
                     .centerCrop()
                     .placeholder(R.drawable.user).error(R.drawable.user)
@@ -354,8 +356,8 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
                 txtRequest.text = requireContext().resources.getString(R.string.Request)
                 txtRequest.setTextColor(Color.parseColor(requireContext().resources.getString(R.string.greentxt)))
                 txtCost.text = currentItem.transaction.amount.toString()
-                txtHistory.text =
-                    time.time(currentItem.transaction.creationTime.toString())
+                txtHistory.text = convertGregorianDateTimeToIranianDateTime(currentItem.transaction.creationTime.toString())
+
                 txtName.text = currentItem.properties?.getOrNull(0)?.value?.userFullName
                 picasso.load(currentItem.userAvatars?.getOrNull(0)?.url).resize(515, 400)
                     .centerCrop()
@@ -375,6 +377,17 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
             else -> ""
         }
 
+    }
+
+   private fun convertGregorianDateTimeToIranianDateTime(dateStr: String): String {
+
+        val date: Date = SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH).parse(dateStr)
+        val cal = CalendarTool()
+        cal.setGregorianDate(date)
+        Calendar.getInstance().time = date
+        val hour: Int = Calendar.getInstance().get(Calendar.HOUR)
+        val min: Int = Calendar.getInstance().get(Calendar.MINUTE)
+        return "${cal.iranianDay} ${cal.iranianMonthStr} ${cal.iranianYear} $hour:$min"
     }
 
 }

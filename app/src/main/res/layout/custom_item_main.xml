@@ -25,6 +25,7 @@
         android:layout_marginStart="@dimen/_17sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/iransanse_medium"
+        android:textSize="@dimen/_18sdp"
         android:text="132,0000"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
