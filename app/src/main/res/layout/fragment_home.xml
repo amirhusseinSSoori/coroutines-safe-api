@@ -13,7 +13,7 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_height="@dimen/_130sdp"
         android:background="@color/blueUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -30,7 +30,7 @@
         android:layout_marginRight="@dimen/marginRightLeftBtn"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_request_btn"
-        android:fontFamily="@font/iransanse_medium"
+
         android:text="@string/txtRequest"
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp"
@@ -52,7 +52,6 @@
         android:layout_marginRight="@dimen/marginRightLeftBtn"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_send_btn"
-        android:fontFamily="@font/iransanse_medium"
         android:text="@string/txtSend"
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp"
@@ -90,10 +89,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:fontFamily="@font/iransanse_medium"
+        android:fontFamily="@font/vazir_medium_fd"
         android:text="@string/txt_price_one"
         android:textColor="@color/white"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="@+id/img_plus"
         app:layout_constraintStart_toEndOf="@+id/img_plus"
         app:layout_constraintTop_toTopOf="@+id/img_plus" />

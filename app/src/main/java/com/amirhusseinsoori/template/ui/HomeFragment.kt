@@ -128,13 +128,7 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
 
                         ))
 
-                        viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
-                            setThrowable {
-                                Log.e("Tag", "onSubscribeShowDiver: ${it}")
-                                adapterHome!!.differ.submitList(it.transactions)
-
-                            }
-                        })
+                   getDataFromLocal()
 
                     }
                     Log.e(TAG, "onSubscribeShowDiver:  ${response.data!!}")
@@ -142,34 +136,26 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
                 is ApiWrapper.ApiError -> {
                     Log.e(TAG, "onSubscribeShowDiver:${response.totalError} ")
                     toastError()
+                    getDataFromLocal()
                 }
                 is ApiWrapper.NetworkError -> {
 
 
+                    getDataFromLocal()
+
+                    Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
+                    toastNet()
+                }
+                is ApiWrapper.UnknownError -> {
+                    getDataFromLocal()
+                    Log.e(TAG, "onSubscribeShowDiver: ${response.message}")
+                    toastError()
                     viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
                         setThrowable {
                             Log.e("Tag", "onSubscribeShowDiver: ${it}")
                             adapterHome!!.differ.submitList(it.transactions)
                         }
                     })
-
-
-
-
-
-
-
-
-
-
-
-
-                    Log.e(TAG, "onSubscribeShowDiver:  ${response.message}")
-                    toastNet()
-                }
-                is ApiWrapper.UnknownError -> {
-                    Log.e(TAG, "onSubscribeShowDiver: ${response.message}")
-                    toastError()
                 }
 
 
@@ -179,6 +165,17 @@ class HomeFragment : MainFragment(R.layout.fragment_home), HomeAdapter.PortData 
         })
 
 
+    }
+
+
+    private fun getDataFromLocal(){
+
+        viewModel.getAllDataProfileViewModel().observe(viewLifecycleOwner, {
+            setThrowable {
+                Log.e("Tag", "onSubscribeShowDiver: ${it}")
+                adapterHome!!.differ.submitList(it.transactions)
+            }
+        })
     }
 
 
